@@ -25,9 +25,11 @@ import webbrowser
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
+TR_TZ = ZoneInfo("Europe/Istanbul")
 TARGET = 5.0          # daily target, in percent
 LOSS_LIMIT = 2.0      # the bot's daily loss limit, in percent
 MARKETS = {
@@ -234,7 +236,8 @@ def market_section(key, eq, tr, mode_demo):
     rows = []
     if n_closed:
         for _, r in sells.iloc[::-1].head(8).iterrows():
-            when = pd.to_datetime(r["time"]).strftime("%b %d, %H:%M")
+            # rows without an offset were written in UTC (older GitHub runs); newer rows carry +03:00
+            when = pd.to_datetime(r["time"], utc=True).tz_convert(TR_TZ).strftime("%b %d, %H:%M")
             rows.append(
                 f'<li><span>{html.escape(str(r.symbol))} <span class="small">sold {int(r.qty)} at {r.price:,.2f}</span></span>'
                 f'<span class="pnl {cls(r.pnl)}">{signed_money(r.pnl, sym)}</span>'
@@ -271,7 +274,7 @@ def build(state_dir, refresh):
     tr = read_csv(state_dir / "trades.csv")
     mode = (state_dir / "mode.txt").read_text().strip() if (state_dir / "mode.txt").exists() else "live"
     demo = mode == "demo"
-    stamp = datetime.now().astimezone().strftime("%b %d, %H:%M %Z").strip()
+    stamp = datetime.now(TR_TZ).strftime("%b %d, %H:%M") + " Turkey time"
     hb_text, stale = (None, False) if demo else bot_status(state_dir)
     hb_line = f" Bot last checked in {hb_text}." if hb_text else ""
     stale_note = (f'<p class="note">The bot last checked in {hb_text}. It may have stopped, so check the server.</p>'

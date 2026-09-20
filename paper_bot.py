@@ -60,6 +60,13 @@ CFG = {
     "demo_bars_per_day": 26,
 }
 
+TR_TZ = ZoneInfo("Europe/Istanbul")   # all timestamps in the records use Turkey time
+
+
+def now_tr():
+    return datetime.now(TR_TZ).isoformat(timespec="seconds")
+
+
 MARKETS = {
     "US": {
         "tz": "America/New_York", "open": (9, 30), "close": (16, 0),
@@ -189,7 +196,7 @@ class Portfolio:
             w = csv.writer(f)
             if new:
                 w.writerow(["time", "market", "day", "equity", "day_pct", "total_pct", "open_positions"])
-            w.writerow([datetime.now().isoformat(timespec="seconds"), self.name, self.day,
+            w.writerow([now_tr(), self.name, self.day,
                         round(eq, 2), round((eq / self.day_start - 1) * 100, 3),
                         round((eq / self.cfg["start_cash"] - 1) * 100, 3), len(self.positions)])
 
@@ -199,7 +206,7 @@ class Portfolio:
             w = csv.writer(f)
             if new:
                 w.writerow(["time", "market", "symbol", "side", "qty", "price", "fee", "reason", "pnl"])
-            w.writerow([datetime.now().isoformat(timespec="seconds"), self.name, sym, side,
+            w.writerow([now_tr(), self.name, sym, side,
                         qty, round(price, 4), round(fee, 4), reason, round(pnl, 2)])
         tag = f" pnl {pnl:+.2f}" if side == "SELL" else ""
         print(f"  {side:4} {qty} {sym} @ {price:.2f} ({reason}){tag}")
