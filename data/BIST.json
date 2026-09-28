@@ -1,8 +1,15 @@
 {
-  "cash": 300000.0,
-  "positions": {},
-  "day": "2026-09-25",
+  "cash": 240131.11167075002,
+  "positions": {
+    "THYAO.IS": {
+      "qty": 207,
+      "entry": 288.78849999999994,
+      "entry_fee": 89.66882924999997,
+      "stop": 286.25
+    }
+  },
+  "day": "2026-09-28",
   "day_start": 300000.0,
   "halted": false,
-  "total_fees": 0.0
+  "total_fees": 89.66882924999997
 }
