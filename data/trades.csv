@@ -1,2 +1,3 @@
 time,market,symbol,side,qty,price,fee,reason,pnl
 2026-09-28T17:45:33+03:00,BIST,THYAO.IS,BUY,207,288.7885,89.6688,signal,0.0
+2026-09-30T16:13:04+03:00,BIST,THYAO.IS,SELL,207,284.9647,88.4816,stop-loss,-969.67
