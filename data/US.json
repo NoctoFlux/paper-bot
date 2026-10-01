@@ -1,6 +1,13 @@
 {
-  "cash": 10000.0,
-  "positions": {},
+  "cash": 8452.471556549073,
+  "positions": {
+    "MSFT": {
+      "qty": 3,
+      "entry": 515.8428144836425,
+      "entry_fee": 0.0,
+      "stop": 513.0186244419643
+    }
+  },
   "day": "2026-10-01",
   "day_start": 10000.0,
   "halted": false,
