@@ -9,3 +9,4 @@ time,market,symbol,side,qty,price,fee,reason,pnl
 2026-10-15T20:10:37+03:00,US,AMZN,BUY,7,253.6518,0.0,signal,0.0
 2026-10-16T19:32:51+03:00,US,AMZN,SELL,7,252.1339,0.0,trend exit,-10.63
 2026-10-16T22:40:58+03:00,US,AAPL,SELL,5,343.3782,0.0,trend exit,32.2
+2026-10-29T22:21:39+03:00,US,MSFT,BUY,3,529.0144,0.0,signal,0.0
